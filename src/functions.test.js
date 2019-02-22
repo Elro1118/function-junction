@@ -3,6 +3,13 @@
  * and returns the largest of them. Use the if-then-else
  * construct available in Javascript.
  */
+const max = (a, b) => {
+  if (a > b) {
+    return a
+  } else {
+    return b
+  }
+}
 
 // ...
 
@@ -10,28 +17,41 @@
  * Define a function maxOfThree() that takes three
  * numbers as arguments and returns the largest of them.
  */
-
+const maxOfThree = (a, b, c) => {
+  return Math.max(a, b, c)
+}
 // ...
 
 /*
  * Define a function sum() that takes two numbers as
  * arguments and computes the sum of those two numbers.
  */
-
+const sum = (a, b) => {
+  return a + b
+}
 // ...
 
 /*
  * Define a function sumOfArray that calculates the sum of
  * all the numbers in an array.
  */
-
+const sumOfArray = arr => {
+  let temp = 0
+  arr.forEach(element => {
+    temp += element
+  })
+  return temp
+}
 // ...
 
 /**
  * Write a function isVowel() that takes a character (i.e. a string of length 1)
  * and returns true if it is a vowel, false otherwise.
  */
-
+const isVowel = letter => {
+  const vowelArray = ['a', 'e', 'i', 'o', 'u']
+  return vowelArray.includes(letter.toLowerCase())
+}
 // ...
 
 /**
@@ -42,7 +62,18 @@
  * For example, rovarspraket("this is fun") should
  * return the string "tothohisos isos fofunon".
  */
-
+const rovarspraket = text => {
+  const vowelArray = ['a', 'e', 'i', 'o', 'u']
+  let newText = ''
+  for (let i = 0; i < text.length; i++) {
+    if (!vowelArray.includes(text.charAt(i))) {
+      newText += text.charAt(i) + 'o' + text.charAt(i)
+    } else {
+      newText += text.charAt(i)
+    }
+  }
+  return newText
+}
 // ...
 
 /**
@@ -51,7 +82,15 @@
  * reverse("skoob") should return the
  * string "books".
  */
-
+const reverse = text => {
+  let newText = ''
+  let tempArray = Array.from(text)
+  tempArray.reverse()
+  tempArray.forEach(letter => {
+    newText += letter
+  })
+  return newText
+}
 // ...
 
 /**
@@ -60,7 +99,18 @@
  *
  * i.e. findLongestWord("book dogs") should return "book"
  */
-
+const findLongestWord = myString => {
+  let wordsArray = myString.split(' ')
+  let numberMax = 0
+  let indexMax = 0
+  wordsArray.forEach(word => {
+    if (word.length > numberMax) {
+      numberMax = word.length
+      indexMax = wordsArray.indexOf(word)
+    }
+  })
+  return wordsArray[indexMax]
+}
 // ...
 
 /**
