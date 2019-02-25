@@ -4,10 +4,15 @@
  * construct available in Javascript.
  */
 const max = (a, b) => {
-  if (a > b) {
-    return a
-  } else {
-    return b
+  if (typeof a === 'number' && typeof b === 'number') {
+    return a > b ? a : b
+  } else if (
+    (typeof a === 'number' && typeof b === 'string') ||
+    (typeof a === 'string' && typeof b === 'number')
+  ) {
+    return typeof a === 'number' ? a : b
+  } else if (typeof a === 'string' && typeof b === 'string') {
+    return 'string'
   }
 }
 
@@ -18,7 +23,28 @@ const max = (a, b) => {
  * numbers as arguments and returns the largest of them.
  */
 const maxOfThree = (a, b, c) => {
-  return Math.max(a, b, c)
+  if (typeof a === 'number' && typeof b === 'number' && typeof c === 'number') {
+    return a > b && a > c ? a : b > a && b > c ? b : c
+  } else if (typeof a === 'string') {
+    return b > c ? b : c
+  } else if (typeof b === 'string') {
+    return a > c ? a : c
+  } else if (typeof c === 'string') {
+    return a > b ? a : b
+  } else if (typeof a === 'string' && typeof b === 'string') {
+    return c
+  } else if (typeof c === 'string' && typeof a === 'string') {
+    return b
+  } else if (typeof b === 'string' && typeof c === 'string') {
+    return a
+  } else if (
+    typeof a === 'string' &&
+    typeof b === 'string' &&
+    typeof c === 'string'
+  ) {
+    return 'string'
+  }
+  // return Math.max(a, b, c) <= Explorer mode
 }
 // ...
 
@@ -27,7 +53,19 @@ const maxOfThree = (a, b, c) => {
  * arguments and computes the sum of those two numbers.
  */
 const sum = (a, b) => {
-  return a + b
+  if (typeof a === 'number' && typeof b === 'number') {
+    return a + b
+  } else if (typeof a === 'string' && typeof b === 'string') {
+    return console.log('a and b need to be numbers or arrays')
+  } else {
+    let sumArray = []
+    a.forEach(aElement => {
+      b.forEach(bElement => {
+        sumArray.push(aElement + bElement)
+      })
+    })
+    return sumArray
+  }
 }
 // ...
 
@@ -84,8 +122,11 @@ const rovarspraket = text => {
  */
 const reverse = text => {
   let newText = ''
-  let tempArray = Array.from(text)
-  tempArray.reverse()
+  let tempArray = []
+  Array.from(text).forEach(element => {
+    tempArray.unshift(element)
+  })
+  // tempArray.reverse() <= Explorer mode
   tempArray.forEach(letter => {
     newText += letter
   })
@@ -111,6 +152,19 @@ const findLongestWord = myString => {
   })
   return wordsArray[indexMax]
 }
+// ...
+/** My function is about  Max */
+const findMaxito = arr => {
+  if (typeof arr === 'number') {
+    return 'the parameter needs to be an array'
+  } else if (typeof arr === 'string') {
+    return 'the parameter needs to be an array'
+  } else {
+    arr.sort((a, b) => b - a)
+    return arr[0]
+  }
+}
+
 // ...
 
 /**
@@ -138,6 +192,7 @@ test('maxOfThree()', t => {
 test('sum()', t => {
   t.is(sum(8, 11), 19)
   t.is(sum(4, 100), 104)
+  t.is(sum([1, 2], [3, 4])[(4, 6)])
 })
 
 test('sumOfArray()', t => {
@@ -180,6 +235,14 @@ test('max() can handle non numbers', t => {
 test('maxOfThree() can handle non numbers', t => {
   t.is(maxOfThree('aaa', 0, 1), 1)
   t.true(isNaN(maxOfThree('aaa', 'bbb', 'ccc')))
+})
+
+test('findMaxito()', t => {
+  t.is(findMaxito([1, 2]), 2)
+  t.is(findMaxito([3, 2]), 3)
+  t.is(findMaxito([3, 2, 5, 9]), 9)
+  t.is(findMaxito(3), 'the parameter needs to be an array')
+  t.is(findMaxito('aaa'), 'the parameter needs to be an array')
 })
 
 /* eslint-enable */
